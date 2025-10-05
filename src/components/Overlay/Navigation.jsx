@@ -23,16 +23,13 @@ export default function Navigation() {
 
   function handleCloseClick() {
     setIsActive(0);
-    setControlsEnabled(true);
   }
 
   function handleNextClick() {
-    setControlsEnabled(true);
     setIsActive(activeItem + 1 >= projectsList.length ? 0 : activeItem + 1);
   }
 
   function handlePrevClick() {
-    setControlsEnabled(true);
     setIsActive(activeItem - 1 < 0 ? projectsList.length - 1 : activeItem - 1);
   }
   return (

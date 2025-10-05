@@ -25,7 +25,7 @@ export default function Home() {
         camera={{ fov: 64, position: projectsList[0].position }}
       >
         {/* <axesHelper args={[5]} /> */}
-        <primitive object={new THREE.GridHelper(200, 50)} />
+        {/* <primitive object={new THREE.GridHelper(200, 50)} /> */}
         <Experience controlsRef={controlsRef} />
         <CameraController controlsRef={controlsRef} />
       </Canvas>

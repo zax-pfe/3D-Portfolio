@@ -75,7 +75,6 @@ function UniversElement({ project, mesh, scale }) {
   );
   function handleClick() {
     setIsActive(project.id);
-    setControlsEnabled(true);
   }
   function handlePointerOver() {
     document.body.style.cursor = "pointer";

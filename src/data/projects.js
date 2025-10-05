@@ -13,8 +13,8 @@ export const projectsList = [
   },
   {
     name: "Moon",
-    position: [-20, 10, -20],
-    target: [-30, 0, -30],
+    position: [-20, 5, -20],
+    target: [-30, -5, -30],
     id: 2,
   },
   {
@@ -31,8 +31,8 @@ export const projectsList = [
   },
   {
     name: "Spaceship",
-    position: [5, 5, 5],
-    target: [10, 0, 0],
+    position: [10, 10, -7],
+    target: [15, 5, -10],
     id: 5,
   },
 ];
