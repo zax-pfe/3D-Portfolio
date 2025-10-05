@@ -8,42 +8,28 @@ import * as THREE from "three";
 import { useState } from "react";
 import Overlay from "@/components/Overlay/Overlay";
 import styles from "./page.module.scss";
-import gsap from "gsap";
 import CameraController from "@/components/CameraController";
+import { projectsList } from "@/data/projects";
+import { useActiveStore } from "@/store/projectStore";
 
 export default function Home() {
-  const [cameraPosition, setCameraPosition] = useState({
-    position: [0, 20, 20],
-    target: [0, 0, 0],
-  });
-
-  const [activeProject, setActiveProject] = useState(null);
-
+  const [activeProject, setActiveProject] = useState(projectsList[0]);
+  const activeItem = useActiveStore((state) => state.activeItem);
+  const activeProj = useActiveStore((state) => state.activeProject);
   const controlsRef = useRef(null);
 
   return (
     <div className={styles.page}>
       <Canvas
         className={styles.canvas}
-        camera={{ fov: 64, position: cameraPosition.position }}
+        camera={{ fov: 64, position: projectsList[0].position }}
       >
-        <axesHelper args={[5]} />
+        {/* <axesHelper args={[5]} /> */}
         <primitive object={new THREE.GridHelper(200, 50)} />
-        <Experience
-          controlsRef={controlsRef}
-          setCameraPosition={setCameraPosition}
-          setActiveProject={setActiveProject}
-        />
-        <CameraController
-          cameraPosition={cameraPosition}
-          controlsRef={controlsRef}
-        />
+        <Experience controlsRef={controlsRef} />
+        <CameraController controlsRef={controlsRef} />
       </Canvas>
-      <Overlay
-        setCameraPosition={setCameraPosition}
-        activeProject={activeProject}
-        setActiveProject={setActiveProject}
-      />
+      <Overlay />
     </div>
   );
 }

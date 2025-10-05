@@ -1,30 +1,16 @@
 import { OrbitControls, ScrollControls } from "@react-three/drei";
 import Stars from "./Stars/Stars";
-import Universe from "./Universe/Universe";
-import { useRef } from "react";
-import gsap from "gsap";
-import { useThree } from "@react-three/fiber";
 import { Commodore } from "./Commodore/Commodore";
-import Overlay from "./Overlay/Overlay";
 import Saturn from "./Satrun/Saturn";
 import Moon from "./Moon/Moon";
 import { projectsList } from "@/data/projects";
 import { Guitar } from "./Guitar/Guitar";
 import { Spaceship } from "./SpaceShip/Spaceship";
+import { useControlStore } from "@/store/projectStore";
+import styles from "./style.module.scss";
+import { useActiveStore } from "@/store/projectStore";
 
-// export const DEFAULT_POSITION = [0, 20, 20];
-// export const MOON_POSITION = [-30, 0, -30];
-// export const SATURN_POSITION = [30, 0, -30];
-// export const MOON_CAMERA = [-20, 10, -20];
-// export const SATURN_CAMERA = [20, 10, -20];
-// export const COMODORE_POSITION = [0, 0, 0];
-// export const COMODORE_CAMERA = [0, 10, 10];
-
-export default function Experience({
-  controlsRef,
-  setCameraPosition,
-  setActiveProject,
-}) {
+export default function Experience({ controlsRef }) {
   // const controlsRef = useRef();
   // const { camera } = useThree(); // récupérer la caméra
 
@@ -59,40 +45,18 @@ export default function Experience({
       <OrbitControls ref={controlsRef} enableZoom={false} />
       <Stars />
 
-      <UniversElement
-        setActiveProject={setActiveProject}
-        setCameraPosition={setCameraPosition}
-        project={projectsList[2]}
-        mesh={<Moon />}
-        scale={1}
-      />
-      <UniversElement
-        setActiveProject={setActiveProject}
-        setCameraPosition={setCameraPosition}
-        project={projectsList[3]}
-        mesh={<Saturn />}
-        scale={1}
-      />
+      <UniversElement project={projectsList[2]} mesh={<Moon />} scale={1} />
+      <UniversElement project={projectsList[3]} mesh={<Saturn />} scale={1} />
 
       <UniversElement
-        setActiveProject={setActiveProject}
-        setCameraPosition={setCameraPosition}
         project={projectsList[1]}
         mesh={<Commodore />}
         scale={5}
       />
 
-      <UniversElement
-        setActiveProject={setActiveProject}
-        setCameraPosition={setCameraPosition}
-        project={projectsList[4]}
-        mesh={<Guitar />}
-        scale={3}
-      />
+      <UniversElement project={projectsList[4]} mesh={<Guitar />} scale={3} />
 
       <UniversElement
-        setActiveProject={setActiveProject}
-        setCameraPosition={setCameraPosition}
         project={projectsList[5]}
         mesh={<Spaceship />}
         scale={1}
@@ -101,22 +65,32 @@ export default function Experience({
   );
 }
 
-function UniversElement({
-  setActiveProject,
-  setCameraPosition,
-  project,
-  mesh,
-  scale,
-}) {
+function UniversElement({ project, mesh, scale }) {
+  const activeItem = useActiveStore((state) => state.activeItem);
+  const activeProj = useActiveStore((state) => state.activeProject);
+  const setIsActive = useActiveStore((state) => state.setIsActive);
+  const controlsEnabled = useControlStore((state) => state.controlsEnabled);
+  const setControlsEnabled = useControlStore(
+    (state) => state.setControlsEnabled
+  );
   function handleClick() {
-    setCameraPosition({ position: project.position, target: project.target });
-    setActiveProject(project.name);
+    setIsActive(project.id);
+    setControlsEnabled(true);
+  }
+  function handlePointerOver() {
+    document.body.style.cursor = "pointer";
+  }
+  function handlePointerOut() {
+    document.body.style.cursor = "default";
   }
   return (
     <group
       position={project.target}
       scale={scale}
       onClick={() => handleClick()}
+      className={styles.universElement}
+      onPointerOver={handlePointerOver}
+      onPointerOut={handlePointerOut}
     >
       {mesh}
     </group>

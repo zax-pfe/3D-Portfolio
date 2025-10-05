@@ -7,17 +7,28 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: solid black 2px;
   justify-content: space-between;
 }
 
 .close {
   top: 0;
-  right: 0;
-  padding: 10px;
-  pointer-events: auto; // rendre le bouton cliquable
   width: 100%;
-  border: solid black 2px;
+  display: flex;
+  justify-content: flex-end;
+
+  span {
+    cursor: pointer;
+    pointer-events: auto; // rendre le bouton cliquable
+    height: 40px;
+    width: 40px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    margin-top: 10px;
+    border-radius: 50%;
+  }
 }
 
 .navigationContainer {
@@ -25,13 +36,47 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: solid black 2px;
+  height: 10vh;
 }
 
 .navigationName {
-  height: 30px;
+  height: 100%;
   width: 100px;
   background-color: white;
-  border-radius: 10px;
   pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.next {
+  height: 100%;
+  width: 100px;
+  background-color: white;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+
+  span {
+    cursor: pointer;
+  }
+}
+
+.previous {
+  height: 100%;
+  width: 100px;
+  background-color: white;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+
+  span {
+    cursor: pointer;
+  }
 }
